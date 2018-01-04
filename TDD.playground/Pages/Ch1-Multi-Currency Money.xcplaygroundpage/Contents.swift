@@ -1,6 +1,18 @@
 import Foundation
 import XCTest
 
+class Dollar {
+    var amount: Int
+
+    init(_ amount: Int) {
+        self.amount = amount
+    }
+
+    func times(_ by: Int) {
+
+    }
+}
+
 class DollarTests: XCTestCase {
     func testMultiplication() {
         let five = Dollar(5)
