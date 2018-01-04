@@ -28,6 +28,7 @@ class DollarTests: XCTestCase {
 
     func testEquality() {
         XCTAssertEqual(Dollar(5), Dollar(5))
+        XCTAssertNotEqual(Dollar(5), Dollar(6))
     }
 }
 
