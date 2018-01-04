@@ -8,7 +8,7 @@ class Dollar {
         self.amount = amount
     }
 
-    func times(_ by: Int) {
+    func times(_ by: Int) -> Dollar {
         self.amount *= by
     }
 }
