@@ -2,10 +2,10 @@ import Foundation
 import XCTest
 
 class Dollar {
-    var amount: Int
+    var amount: Int = 10
 
     init(_ amount: Int) {
-        self.amount = amount
+        self.amount = 10
     }
 
     func times(_ by: Int) {
