@@ -5,7 +5,7 @@ class Dollar {
     var amount: Int = 10
 
     init(_ amount: Int) {
-        self.amount = 10
+        self.amount = 5 * 2
     }
 
     func times(_ by: Int) {
@@ -17,7 +17,7 @@ class DollarTests: XCTestCase {
     func testMultiplication() {
         let five = Dollar(5)
         five.times(2)
-        XCTAssertEqual(10, five.amount)
+        XCTAssertEqual(5 * 2, five.amount)
     }
 }
 
