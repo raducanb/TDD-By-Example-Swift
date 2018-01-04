@@ -1,7 +1,7 @@
 import Foundation
 import XCTest
 
-class Dollar {
+class Dollar: Equatable {
     var amount: Int
 
     init(_ amount: Int) {
@@ -10,6 +10,10 @@ class Dollar {
 
     func times(_ by: Int) -> Dollar {
         return Dollar(self.amount * by)
+    }
+
+    static func ==(lhs: Dollar, rhs: Dollar) -> Bool {
+        return true
     }
 }
 
