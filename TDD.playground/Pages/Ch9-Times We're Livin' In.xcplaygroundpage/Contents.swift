@@ -21,23 +21,25 @@ import XCTest
 
 class Money: Equatable {
     fileprivate var amount: Int
+    public var currency: String
 
-    init(_ amount: Int) {
+    init(_ amount: Int, currency: String) {
         self.amount = amount
+        self.currency = currency
     }
 
     func times(_ by: Int) -> Money {
-        return Dollar(self.amount * by)
+        fatalError("Must Override")
     }
 }
 
 extension Money {
     static func dollar(_ amount: Int) -> Money {
-        return Dollar(amount)
+        return Dollar(amount, currency: "USD")
     }
 
     static func franc(_ amount: Int) -> Money {
-        return Franc(amount)
+        return Franc(amount, currency: "CHF")
     }
 }
 
@@ -48,13 +50,13 @@ func == <T: Money>(lhs: T, rhs: T) -> Bool {
 
 class Dollar: Money {
     override func times(_ by: Int) -> Money {
-        return Dollar(self.amount * by)
+        return Money.dollar(self.amount * by)
     }
 }
 
 class Franc: Money {
     override func times(_ by: Int) -> Money {
-        return Franc(self.amount * by)
+        return Money.franc(self.amount * by)
     }
 }
 
@@ -80,8 +82,8 @@ class DollarTests: XCTestCase {
     }
 
     func testCurrency() {
-        XCTAssertEqual("USD", Money.dollar(1).currency());
-        XCTAssertEqual("CHF", Money.franc(1).currency());
+        XCTAssertEqual("USD", Money.dollar(1).currency);
+        XCTAssertEqual("CHF", Money.franc(1).currency);
     }
 }
 
