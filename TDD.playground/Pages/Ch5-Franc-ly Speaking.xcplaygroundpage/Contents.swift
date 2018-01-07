@@ -37,6 +37,12 @@ class DollarTests: XCTestCase {
         XCTAssertEqual(Dollar(5 * 3), five.times(3))
     }
 
+    func testFrancMultiplication() {
+        let five = Franc(5)
+        XCTAssertEqual(Franc(5 * 2), five.times(2))
+        XCTAssertEqual(Franc(5 * 3), five.times(3))
+    }
+
     func testEquality() {
         XCTAssertEqual(Dollar(5), Dollar(5))
         XCTAssertNotEqual(Dollar(5), Dollar(6))
