@@ -14,7 +14,7 @@ import Foundation
 import XCTest
 
 class Dollar: Equatable {
-    var amount: Int
+    private var amount: Int
 
     init(_ amount: Int) {
         self.amount = amount
