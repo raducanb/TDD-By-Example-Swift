@@ -42,6 +42,18 @@ class DollarTests: XCTestCase {
     }
 }
 
+/*:
+ * $5 + 10 CHF = $10 if rate is 2:1
+ * OK - $5 * 2 = $10
+ * Make “amount” private
+ * OK - Dollar side effects?
+ * Money rounding?
+ * OK - equals()
+ * hashCode()
+ * Equal null
+ * Equal object
+ */
+
 // Running the tests
 class TestObserver: NSObject, XCTestObservation {
     func testCase(_ testCase: XCTestCase,
