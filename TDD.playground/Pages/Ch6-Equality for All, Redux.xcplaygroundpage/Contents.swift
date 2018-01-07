@@ -17,35 +17,27 @@
 import Foundation
 import XCTest
 
-class Dollar: Equatable {
-    private var amount: Int
+class Money: Equatable {
+    fileprivate var amount: Int
 
     init(_ amount: Int) {
         self.amount = amount
     }
 
-    func times(_ by: Int) -> Dollar {
-        return Dollar(self.amount * by)
-    }
-
-    static func ==(lhs: Dollar, rhs: Dollar) -> Bool {
+    static func ==(lhs: Money, rhs: Money) -> Bool {
         return lhs.amount == rhs.amount
     }
 }
 
-class Franc: Equatable {
-    private var amount: Int
-
-    init(_ amount: Int) {
-        self.amount = amount
+class Dollar: Money {
+    func times(_ by: Int) -> Dollar {
+        return Dollar(self.amount * by)
     }
+}
 
+class Franc: Money {
     func times(_ by: Int) -> Franc {
         return Franc(self.amount * by)
-    }
-
-    static func ==(lhs: Franc, rhs: Franc) -> Bool {
-        return lhs.amount == rhs.amount
     }
 }
 
