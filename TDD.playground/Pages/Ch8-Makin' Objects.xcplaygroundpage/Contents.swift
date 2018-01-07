@@ -80,6 +80,32 @@ class DollarTests: XCTestCase {
     }
 }
 
+/*:
+ * $5 + 10 CHF = $10 if rate is 2:1
+ * OK - $5 * 2 = $10
+ * OK - Make “amount” private
+ * OK - Dollar side effects?
+ * Money rounding?
+ * OK - equals()
+ * hashCode()
+ * Equal null
+ * Equal object
+ * OK - 5 CHF * 2 = 10 CHF
+ * **Dollar/Franc duplication**
+ * OK - Common equals
+ * Common times
+ * OK - Compare Francs with Dollars
+ * Currency?
+ */
+
+/*:
+ We've done the following:
+ * Took a step toward eliminating duplication by reconciling the signatures of two variants of the same method—times()
+ * Moved at least a declaration of the method to the common superclass
+ * Decoupled test code from the existence of concrete subclasses by introducing factory methods
+ * Noticed that when the subclasses disappear some tests will be redundant, but took no action
+ */
+
 // Running the tests
 class TestObserver: NSObject, XCTestObservation {
     func testCase(_ testCase: XCTestCase,
