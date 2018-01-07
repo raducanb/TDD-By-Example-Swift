@@ -106,20 +106,18 @@ class TestObserver: NSObject, XCTestObservation {
  * Equal null
  * Equal object
  * OK - 5 CHF * 2 = 10 CHF
- * Dollar/Franc duplication
+ * OK - Dollar/Franc duplication
  * OK - Common equals
  * OK - Common times
  * OK - Compare Francs with Dollars
  * OK - Currency?
- * Delete testFrancMultiplication?
+ * OK - Delete testFrancMultiplication?
  */
 
 /*:
  We've done the following:
- * Reconciled two methods—times()—by first inlining the methods they called and then replacing constants with variables
- * Wrote a toString() without a test just to help us debug
- * Tried a change (returning Money instead of Franc) and let the tests tell us whether it worked
- * Backed out an experiment and wrote another test. Making the test work made the experiment work
+ * Finished gutting subclasses and deleted them
+ * Eliminated tests that made sense with the old code structure but were redundant with the new code structure
  */
 
 let testObserver = TestObserver()
