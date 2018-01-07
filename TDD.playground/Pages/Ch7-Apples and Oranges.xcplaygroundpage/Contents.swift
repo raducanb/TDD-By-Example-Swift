@@ -27,6 +27,7 @@ class Money: Equatable {
 
     static func ==(lhs: Money, rhs: Money) -> Bool {
         return lhs.amount == rhs.amount
+            && String(describing: lhs.self) == String(describing: rhs.self)
     }
 }
 
@@ -63,6 +64,24 @@ class DollarTests: XCTestCase {
         XCTAssertNotEqual(Franc(5), Dollar(5))
     }
 }
+
+/*:
+ * $5 + 10 CHF = $10 if rate is 2:1
+ * OK - $5 * 2 = $10
+ * OK - Make “amount” private
+ * OK - Dollar side effects?
+ * Money rounding?
+ * OK - equals()
+ * hashCode()
+ * Equal null
+ * Equal object
+ * OK - 5 CHF * 2 = 10 CHF
+ * Dollar/Franc duplication
+ * OK - Common equals
+ * Common times
+ * OK - Compare Francs with Dollars
+ * Currency?
+ */
 
 // Running the tests
 class TestObserver: NSObject, XCTestObservation {
