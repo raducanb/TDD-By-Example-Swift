@@ -62,6 +62,30 @@ class DollarTests: XCTestCase {
     }
 }
 
+/*:
+ * $5 + 10 CHF = $10 if rate is 2:1
+ * OK - $5 * 2 = $10
+ * OK - Make “amount” private
+ * OK - Dollar side effects?
+ * Money rounding?
+ * OK - equals()
+ * hashCode()
+ * Equal null
+ * Equal object
+ * OK - 5 CHF * 2 = 10 CHF
+ * Dollar/Franc duplication
+ * OK - Common equals
+ * Common times
+ * Compare Francs with Dollars
+ */
+
+/*:
+ We've done the following:
+ * Stepwise moved common code from one class (Dollar) to a superclass (Money)
+ * Made a second class (Franc) a subclass also
+ * Reconciled two implementations—equals()—before eliminating the redundant one
+ */
+
 // Running the tests
 class TestObserver: NSObject, XCTestObservation {
     func testCase(_ testCase: XCTestCase,
