@@ -89,7 +89,6 @@ class DollarTests: XCTestCase {
  * Promised ourselves we wouldn't go home until the duplication was gone
  */
 
-
 // Running the tests
 class TestObserver: NSObject, XCTestObservation {
     func testCase(_ testCase: XCTestCase,
