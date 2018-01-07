@@ -30,6 +30,22 @@ class Dollar: Equatable {
     }
 }
 
+class Franc: Equatable {
+    private var amount: Int
+
+    init(_ amount: Int) {
+        self.amount = amount
+    }
+
+    func times(_ by: Int) -> Franc {
+        return Franc(self.amount * by)
+    }
+
+    static func ==(lhs: Franc, rhs: Franc) -> Bool {
+        return lhs.amount == rhs.amount
+    }
+}
+
 class DollarTests: XCTestCase {
     func testMultiplication() {
         let five = Dollar(5)
@@ -48,6 +64,22 @@ class DollarTests: XCTestCase {
         XCTAssertNotEqual(Dollar(5), Dollar(6))
     }
 }
+
+/*:
+ * $5 + 10 CHF = $10 if rate is 2:1
+ * OK - $5 * 2 = $10
+ * OK - Make “amount” private
+ * OK - Dollar side effects?
+ * Money rounding?
+ * OK - equals()
+ * hashCode()
+ * Equal null
+ * Equal object
+ * OK - 5 CHF * 2 = 10 CHF
+ * Dollar/Franc duplication
+ * Common equals
+ * Common times
+ */
 
 // Running the tests
 class TestObserver: NSObject, XCTestObservation {
