@@ -53,7 +53,7 @@ class Money: Equatable {
 
 extension Money {
     static func dollar(_ amount: Int) -> Money {
-        return Dollar(amount, currency: "USD")
+        return Money(amount, currency: "USD")
     }
 
     static func franc(_ amount: Int) -> Money {
