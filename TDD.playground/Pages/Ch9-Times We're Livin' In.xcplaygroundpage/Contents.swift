@@ -97,6 +97,34 @@ class TestObserver: NSObject, XCTestObservation {
     }
 }
 
+/*:
+ * $5 + 10 CHF = $10 if rate is 2:1
+ * OK - $5 * 2 = $10
+ * OK - Make “amount” private
+ * OK - Dollar side effects?
+ * Money rounding?
+ * OK - equals()
+ * hashCode()
+ * Equal null
+ * Equal object
+ * OK - 5 CHF * 2 = 10 CHF
+ * Dollar/Franc duplication
+ * OK - Common equals
+ * Common times
+ * OK - Compare Francs with Dollars
+ * OK - Currency?
+ * Delete testFrancMultiplication?
+ */
+
+/*:
+ We've done the following:
+ * Were a little stuck on big design ideas, so we worked on something small we noticed earlier
+ * Reconciled the two constructors by moving the variation to the caller (the factory method)
+ * Interrupted a refactoring for a little twist, using the factory method in times()
+ * Repeated an analogous refactoring (doing to Dollar what we just did to Franc) in one big step
+ * Pushed up the identical constructors
+ */
+
 let testObserver = TestObserver()
 XCTestObservationCenter.shared.addTestObserver(testObserver)
 DollarTests.defaultTestSuite.run()
