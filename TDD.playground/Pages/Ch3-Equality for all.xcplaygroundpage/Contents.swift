@@ -1,3 +1,13 @@
+/*:
+ * $5 + 10 CHF = $10 if rate is 2:1
+ * OK - $5 * 2 = $10
+ * Make “amount” private
+ * OK - Dollar side effects?
+ * Money rounding?
+ * **equals()**
+ * hashCode()
+ */
+
 import Foundation
 import XCTest
 
