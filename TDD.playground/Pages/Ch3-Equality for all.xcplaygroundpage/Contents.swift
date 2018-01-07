@@ -54,6 +54,15 @@ class DollarTests: XCTestCase {
  * Equal object
  */
 
+/*:
+ We've done the following:
+ * Noticed that our design pattern (Value Object) implied an operation
+ * Tested for that operation
+ * Implemented it simply
+ * Didn't refactor immediately, but instead tested further
+ * Refactored to capture the two cases at once
+ */
+
 // Running the tests
 class TestObserver: NSObject, XCTestObservation {
     func testCase(_ testCase: XCTestCase,

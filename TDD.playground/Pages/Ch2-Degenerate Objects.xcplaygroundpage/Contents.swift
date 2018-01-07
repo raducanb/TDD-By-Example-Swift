@@ -39,6 +39,13 @@ class DollarTests: XCTestCase {
  * Money rounding?
  */
 
+/*:
+ We've done the following:
+ * Translated a design objection (side effects) into a test case that failed because of the objection
+ * Got the code to compile quickly with a stub implementation
+ * Made the test work by typing in what seemed to be the right code
+ */
+
 // Running the tests
 class TestObserver: NSObject, XCTestObservation {
     func testCase(_ testCase: XCTestCase,
