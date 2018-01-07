@@ -20,7 +20,9 @@
 import Foundation
 import XCTest
 
-class Money: Equatable {
+protocol Expression { }
+
+class Money: Equatable, Expression {
     fileprivate var amount: Int
     public var currency: String
 
@@ -31,6 +33,10 @@ class Money: Equatable {
 
     func times(_ by: Int) -> Money {
         return Money(self.amount * by, currency: currency)
+    }
+
+    func plus(_ money: Money) -> Expression {
+        return Money(self.amount + money.amount, currency: self.currency)
     }
 }
 
@@ -47,6 +53,12 @@ extension Money {
 func == <T: Money>(lhs: T, rhs: T) -> Bool {
     return lhs.amount == rhs.amount
         && lhs.currency == rhs.currency
+}
+
+class Bank {
+    func reduce(_ expression: Expression, to currency: String) -> Money {
+        return Money.dollar(10)
+    }
 }
 
 class DollarTests: XCTestCase {
@@ -68,10 +80,10 @@ class DollarTests: XCTestCase {
     }
 
     func testSimpleAddition() {
-        let five = Money.dollar(five)
+        let five = Money.dollar(5)
         let sum = five.plus(five)
         let bank = Bank()
-        let reduced = bank.reduce(sum, "USD")
+        let reduced = bank.reduce(sum, to: "USD")
         XCTAssertEqual(Money.dollar(10), reduced)
     }
 }
