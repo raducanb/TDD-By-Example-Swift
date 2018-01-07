@@ -107,7 +107,7 @@ class TestObserver: NSObject, XCTestObservation {
  * OK - 5 CHF * 2 = 10 CHF
  * Dollar/Franc duplication
  * OK - Common equals
- * Common times
+ * OK - Common times
  * OK - Compare Francs with Dollars
  * OK - Currency?
  * Delete testFrancMultiplication?
@@ -115,11 +115,10 @@ class TestObserver: NSObject, XCTestObservation {
 
 /*:
  We've done the following:
- * Were a little stuck on big design ideas, so we worked on something small we noticed earlier
- * Reconciled the two constructors by moving the variation to the caller (the factory method)
- * Interrupted a refactoring for a little twist, using the factory method in times()
- * Repeated an analogous refactoring (doing to Dollar what we just did to Franc) in one big step
- * Pushed up the identical constructors
+ * Reconciled two methods—times()—by first inlining the methods they called and then replacing constants with variables
+ * Wrote a toString() without a test just to help us debug
+ * Tried a change (returning Money instead of Franc) and let the tests tell us whether it worked
+ * Backed out an experiment and wrote another test. Making the test work made the experiment work
  */
 
 let testObserver = TestObserver()
