@@ -44,6 +44,26 @@ class DollarTests: XCTestCase {
     }
 }
 
+/*:
+ * $5 + 10 CHF = $10 if rate is 2:1
+ * OK - $5 * 2 = $10
+ * OK - Make “amount” private
+ * OK - Dollar side effects?
+ * Money rounding?
+ * OK - equals()
+ * hashCode()
+ * Equal null
+ * Equal object
+ */
+
+/*:
+ We've done the following:
+ * Used functionality just developed to improve a test
+ * Noticed that if two tests fail at once we're sunk
+ * Proceeded in spite of the risk
+ * Used new functionality in the object under test to reduce coupling between the tests and the code
+ */
+
 // Running the tests
 class TestObserver: NSObject, XCTestObservation {
     func testCase(_ testCase: XCTestCase,
