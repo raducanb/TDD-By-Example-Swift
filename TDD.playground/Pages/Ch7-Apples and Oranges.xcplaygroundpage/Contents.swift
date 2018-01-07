@@ -60,6 +60,7 @@ class DollarTests: XCTestCase {
         XCTAssertNotEqual(Dollar(5), Dollar(6))
         XCTAssertEqual(Franc(5), Franc(5))
         XCTAssertNotEqual(Franc(5), Franc(6))
+        XCTAssertNotEqual(Franc(5), Dollar(5))
     }
 }
 
