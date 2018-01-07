@@ -86,7 +86,7 @@ class DollarTests: XCTestCase {
 /*:
  We've done the following:
  * Took an objection that was bothering us and turned it into a test
- * Made the test run a reasonable, but not perfect way—className()
+ * Made the test run a reasonable, but not perfect way—getClass()
  * Decided not to introduce more design until we had a better motivation
  */
 
