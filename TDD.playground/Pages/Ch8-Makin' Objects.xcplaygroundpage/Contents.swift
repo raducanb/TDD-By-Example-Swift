@@ -26,43 +26,57 @@ class Money: Equatable {
         self.amount = amount
     }
 
-    static func ==(lhs: Money, rhs: Money) -> Bool {
-        return lhs.amount == rhs.amount
-            && String(describing: lhs.self) == String(describing: rhs.self)
+    func times(_ by: Int) -> Money {
+        return Dollar(self.amount * by)
     }
 }
 
+extension Money {
+    static func dollar(_ amount: Int) -> Money {
+        return Dollar(amount)
+    }
+
+    static func franc(_ amount: Int) -> Money {
+        return Franc(amount)
+    }
+}
+
+func == <T: Money>(lhs: T, rhs: T) -> Bool {
+    return lhs.amount == rhs.amount
+        && String(describing: lhs.self) == String(describing: rhs.self)
+}
+
 class Dollar: Money {
-    func times(_ by: Int) -> Dollar {
+    override func times(_ by: Int) -> Money {
         return Dollar(self.amount * by)
     }
 }
 
 class Franc: Money {
-    func times(_ by: Int) -> Franc {
+    override func times(_ by: Int) -> Money {
         return Franc(self.amount * by)
     }
 }
 
 class DollarTests: XCTestCase {
     func testMultiplication() {
-        let five = Dollar(5)
-        XCTAssertEqual(Dollar(5 * 2), five.times(2))
-        XCTAssertEqual(Dollar(5 * 3), five.times(3))
+        let five = Money.dollar(5)
+        XCTAssertEqual(Money.dollar(5 * 2), five.times(2))
+        XCTAssertEqual(Money.dollar(5 * 3), five.times(3))
     }
 
     func testFrancMultiplication() {
-        let five = Franc(5)
-        XCTAssertEqual(Franc(5 * 2), five.times(2))
-        XCTAssertEqual(Franc(5 * 3), five.times(3))
+        let five = Money.franc(5)
+        XCTAssertEqual(Money.franc(5 * 2), five.times(2))
+        XCTAssertEqual(Money.franc(5 * 3), five.times(3))
     }
 
     func testEquality() {
-        XCTAssertEqual(Dollar(5), Dollar(5))
-        XCTAssertNotEqual(Dollar(5), Dollar(6))
-        XCTAssertEqual(Franc(5), Franc(5))
-        XCTAssertNotEqual(Franc(5), Franc(6))
-        XCTAssertNotEqual(Franc(5), Dollar(5))
+        XCTAssertEqual(Money.dollar(5), Money.dollar(5))
+        XCTAssertNotEqual(Money.dollar(5), Money.dollar(6))
+        XCTAssertEqual(Money.franc(5), Money.franc(5))
+        XCTAssertNotEqual(Money.franc(5), Money.franc(6))
+        XCTAssertNotEqual(Money.dollar(5), Money.franc(5))
     }
 }
 
