@@ -81,6 +81,15 @@ class DollarTests: XCTestCase {
  * Common times
  */
 
+/*:
+ We've done the following:
+ * Couldn't tackle a big test (Franc duplication), so we invented a small test that represented progress
+ * Wrote the test by shamelessly duplicating and editing
+ * Even worse, made the test work by copying and editing model code wholesale
+ * Promised ourselves we wouldn't go home until the duplication was gone
+ */
+
+
 // Running the tests
 class TestObserver: NSObject, XCTestObservation {
     func testCase(_ testCase: XCTestCase,
