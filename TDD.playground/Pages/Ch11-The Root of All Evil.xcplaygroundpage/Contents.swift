@@ -66,8 +66,6 @@ func == <T: Money>(lhs: T, rhs: T) -> Bool {
         && lhs.currency == rhs.currency
 }
 
-class Franc: Money { }
-
 class DollarTests: XCTestCase {
     func testMultiplication() {
         let five = Money.dollar(5)
