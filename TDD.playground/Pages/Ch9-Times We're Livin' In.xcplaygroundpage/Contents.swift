@@ -9,11 +9,11 @@
  * Equal null
  * Equal object
  * OK - 5 CHF * 2 = 10 CHF
- * **Dollar/Franc duplication**
+ * Dollar/Franc duplication
  * OK - Common equals
  * Common times
  * OK - Compare Francs with Dollars
- * Currency?
+ * **Currency?**
  */
 
 import Foundation
@@ -77,6 +77,11 @@ class DollarTests: XCTestCase {
         XCTAssertEqual(Money.franc(5), Money.franc(5))
         XCTAssertNotEqual(Money.franc(5), Money.franc(6))
         XCTAssertNotEqual(Money.dollar(5), Money.franc(5))
+    }
+
+    func testCurrency() {
+        XCTAssertEqual("USD", Money.dollar(1).currency());
+        XCTAssertEqual("CHF", Money.franc(1).currency());
     }
 }
 
