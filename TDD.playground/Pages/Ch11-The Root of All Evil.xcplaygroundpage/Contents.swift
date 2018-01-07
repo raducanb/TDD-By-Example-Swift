@@ -57,7 +57,7 @@ extension Money {
     }
 
     static func franc(_ amount: Int) -> Money {
-        return Franc(amount, currency: "CHF")
+        return Money(amount, currency: "CHF")
     }
 }
 
@@ -87,10 +87,6 @@ class DollarTests: XCTestCase {
         XCTAssertEqual(Money.franc(5), Money.franc(5))
         XCTAssertNotEqual(Money.franc(5), Money.franc(6))
         XCTAssertNotEqual(Money.dollar(5), Money.franc(5))
-    }
-
-    func testDifferentClassEquality() {
-        XCTAssertEqual(Money(10, currency: "CHF"), Franc(10, currency: "CHF"));
     }
 
     func testCurrency() {
