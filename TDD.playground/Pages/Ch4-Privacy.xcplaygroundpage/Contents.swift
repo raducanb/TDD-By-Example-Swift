@@ -32,10 +32,8 @@ class Dollar: Equatable {
 class DollarTests: XCTestCase {
     func testMultiplication() {
         let five = Dollar(5)
-        var product = five.times(2)
-        XCTAssertEqual(Dollar(5 * 2), product)
-        product = five.times(3)
-        XCTAssertEqual(Dollar(5 * 3), product)
+        XCTAssertEqual(Dollar(5 * 2), five.times(2))
+        XCTAssertEqual(Dollar(5 * 3), five.times(3))
     }
 
     func testEquality() {
