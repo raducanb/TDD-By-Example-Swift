@@ -83,6 +83,13 @@ class DollarTests: XCTestCase {
  * Currency?
  */
 
+/*:
+ We've done the following:
+ * Took an objection that was bothering us and turned it into a test
+ * Made the test run a reasonable, but not perfect way—getClass()
+ * Decided not to introduce more design until we had a better motivation
+ */
+
 // Running the tests
 class TestObserver: NSObject, XCTestObservation {
     func testCase(_ testCase: XCTestCase,
