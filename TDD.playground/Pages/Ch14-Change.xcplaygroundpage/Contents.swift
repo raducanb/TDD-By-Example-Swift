@@ -11,7 +11,7 @@ import Foundation
 import XCTest
 
 protocol Expression {
-    func reduce(to currency: String) -> Money
+    func reduce(withBank bank: Bank, to currency: String) -> Money
 }
 
 class Money: Equatable {
@@ -33,11 +33,8 @@ class Money: Equatable {
 }
 
 extension Money: Expression {
-    func reduce(to currency: String) -> Money {
-        var rate = 1
-        if self.currency == "CHF" && currency == "USD" {
-            rate = 2
-        }
+    func reduce(withBank bank: Bank, to currency: String) -> Money {
+        var rate = bank.rate(from: self.currency, to: currency)
         return Money(amount / rate, currency: currency)
     }
 }
@@ -59,13 +56,18 @@ func == <T: Money>(lhs: T, rhs: T) -> Bool {
 
 class Bank {
     func reduce(_ expression: Expression, to currency: String) -> Money {
-        return expression.reduce(to: currency)
+        return expression.reduce(withBank: self, to: currency)
     }
 
     func addRate(from toCurrency: String, to fromCurrency: String, _ value: Int) {
 
     }
 
+    func rate(from: String, to: String) -> Int {
+        if from == "CHF" && to == "USD" {
+            return 2
+        }
+        return 1
     }
 }
 
@@ -78,7 +80,7 @@ class Sum: Expression {
         self.addend = addend
     }
 
-    func reduce(to currency: String) -> Money {
+    func reduce(withBank bank: Bank, to currency: String) -> Money {
         return Money(augend.amount + addend.amount, currency: currency)
     }
 }
