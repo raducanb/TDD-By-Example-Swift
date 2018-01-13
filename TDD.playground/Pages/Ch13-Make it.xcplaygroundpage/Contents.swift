@@ -49,8 +49,7 @@ func == <T: Money>(lhs: T, rhs: T) -> Bool {
 class Bank {
     func reduce(_ expression: Expression, to currency: String) -> Money {
         let sum = expression as! Sum
-        let amount = sum.augend.amount + sum.addend.amount
-        return Money(amount, currency: currency)
+        return sum.reduce(to: currency)
     }
 }
 
@@ -61,6 +60,10 @@ class Sum: Expression {
     init(_ augend: Money, _ addend: Money) {
         self.augend = augend
         self.addend = addend
+    }
+
+    func reduce(to currency: String) -> Money {
+        return Money(augend.amount + addend.amount, currency: currency)
     }
 }
 
