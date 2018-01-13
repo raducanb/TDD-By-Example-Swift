@@ -12,6 +12,7 @@ import XCTest
 
 protocol Expression {
     func reduce(withBank bank: Bank, to currency: String) -> Money
+    func plus(_ addend: Expression) -> Expression
 }
 
 class Money: Equatable {
@@ -23,12 +24,8 @@ class Money: Equatable {
         self.currency = currency
     }
 
-    func times(_ by: Int) -> Money {
+    func times(_ by: Int) -> Expression {
         return Money(self.amount * by, currency: currency)
-    }
-
-    func plus(_ money: Money) -> Expression {
-        return Sum(self, money)
     }
 }
 
@@ -36,6 +33,10 @@ extension Money: Expression {
     func reduce(withBank bank: Bank, to currency: String) -> Money {
         let rate = bank.rate(from: self.currency, to: currency)
         return Money(amount / rate, currency: currency)
+    }
+
+    func plus(_ addend: Expression) -> Expression {
+        return Sum(self, addend)
     }
 }
 
@@ -91,10 +92,10 @@ class Bank {
 }
 
 class Sum: Expression {
-    let augend: Money
-    let addend: Money
+    let augend: Expression
+    let addend: Expression
 
-    init(_ augend: Money, _ addend: Money) {
+    init(_ augend: Expression, _ addend: Expression) {
         self.augend = augend
         self.addend = addend
     }
@@ -104,13 +105,17 @@ class Sum: Expression {
             + addend.reduce(withBank: bank, to: currency).amount
         return Money(amount, currency: currency)
     }
+
+    func plus(_ addend: Expression) -> Expression {
+        return Money(1, currency: "EXP")
+    }
 }
 
 class DollarTests: XCTestCase {
     func testMultiplication() {
         let five = Money.dollar(5)
-        XCTAssertEqual(Money.dollar(5 * 2), five.times(2))
-        XCTAssertEqual(Money.dollar(5 * 3), five.times(3))
+        XCTAssertEqual(Money.dollar(5 * 2), five.times(2) as! Money)
+        XCTAssertEqual(Money.dollar(5 * 3), five.times(3) as! Money)
     }
 
     func testEquality() {
@@ -150,8 +155,8 @@ class DollarTests: XCTestCase {
         let five = Money.dollar(5)
         let result = five.plus(five)
         let sum: Sum = result as! Sum
-        XCTAssertEqual(sum.augend, five)
-        XCTAssertEqual(sum.addend, five)
+        XCTAssertEqual(sum.augend as! Money, five)
+        XCTAssertEqual(sum.addend as! Money, five)
     }
 
     func testReduceMoneyWithDifferentCurrency() {
@@ -161,9 +166,9 @@ class DollarTests: XCTestCase {
         XCTAssertEqual(Money.dollar(1), result)
     }
 
-    func testAdditionWithDifferentCurrency() {
-        let fiveDollars = Money.dollar(5)
-        let tenFrancs = Money.franc(10)
+    func testMixedAddition() {
+        let fiveDollars: Expression = Money.dollar(5)
+        let tenFrancs: Expression = Money.franc(10)
         let bank = Bank()
         bank.addRate(from: "CHF", to: "USD", 2)
         let result = bank.reduce(fiveDollars.plus(tenFrancs), to: "USD")
