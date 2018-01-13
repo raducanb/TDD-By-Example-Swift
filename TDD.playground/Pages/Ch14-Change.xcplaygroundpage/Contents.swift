@@ -34,7 +34,11 @@ class Money: Equatable {
 
 extension Money: Expression {
     func reduce(to currency: String) -> Money {
-        return self
+        var rate = 1
+        if self.currency == "CHF" && currency == "USD" {
+            rate = 2
+        }
+        return Money(amount / rate, currency: currency)
     }
 }
 
@@ -56,6 +60,10 @@ func == <T: Money>(lhs: T, rhs: T) -> Bool {
 class Bank {
     func reduce(_ expression: Expression, to currency: String) -> Money {
         return expression.reduce(to: currency)
+    }
+
+    func addRate(to toCurrency: String, from fromCurrency: String, _ value: Int) {
+
     }
 }
 
