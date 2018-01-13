@@ -52,6 +52,16 @@ class Bank {
     }
 }
 
+class Sum {
+    let augend: Money
+    let addend: Money
+
+    init(_ augend: Money, _ addend: Money) {
+        self.augend = augend
+        self.addend = addend
+    }
+}
+
 class DollarTests: XCTestCase {
     func testMultiplication() {
         let five = Money.dollar(5)
