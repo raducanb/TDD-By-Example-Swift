@@ -123,7 +123,7 @@ class DollarTests: XCTestCase {
 
     func testReduceMoneyWithDifferentCurrency() {
         let bank = Bank()
-        bank.addRate("CHF", "USD", 2)
+        bank.addRate(to: "CHF", from: "USD", 2)
         let result = bank.reduce(Money.franc(2), to: "USD")
         XCTAssertEqual(Money.dollar(1), result)
     }
