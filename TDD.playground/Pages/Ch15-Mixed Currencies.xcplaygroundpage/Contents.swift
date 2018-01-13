@@ -177,17 +177,21 @@ class DollarTests: XCTestCase {
 }
 
 /*:
- * $5 + 10 CHF = $10 if rate is 2:1
+ * OK -$5 + 10 CHF = $10 if rate is 2:1
  * OK - $5 + $5 = $10
  * Return Money from $5 + $5
  * OK - Bank.reduce(Money)
  * OK - Reduce Money with conversion**
- * OK -Reduce(Bank, String)
+ * OK - Reduce(Bank, String)
+ * Sum.plus
+ * Expression.times
  */
 
 /*:
  We've done the following:
- *
+ * Wrote the test we wanted, then backed off to make it achievable in one step
+ * Generalized (used a more abstract declaration) from the leaves back to the root (the test case)
+ * Followed the compiler when we made a change (Expression fiveBucks), which caused changes to ripple (added plus() to Expression, and so on)
  */
 
 // Running the tests
