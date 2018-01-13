@@ -32,6 +32,12 @@ class Money: Equatable, Expression {
 }
 
 extension Money {
+    func reduce(to currency: String) -> Money {
+        return self
+    }
+}
+
+extension Money {
     static func dollar(_ amount: Int) -> Money {
         return Money(amount, currency: "USD")
     }
@@ -48,6 +54,10 @@ func == <T: Money>(lhs: T, rhs: T) -> Bool {
 
 class Bank {
     func reduce(_ expression: Expression, to currency: String) -> Money {
+        if expression is Money {
+            let money = expression as! Money
+            return money.reduce(to: currency)
+        }
         let sum = expression as! Sum
         return sum.reduce(to: currency)
     }
