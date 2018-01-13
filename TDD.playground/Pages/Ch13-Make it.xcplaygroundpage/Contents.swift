@@ -91,7 +91,7 @@ class DollarTests: XCTestCase {
     func testAdditionReturnsSum() {
         let five = Money.dollar(5)
         let result = five.plus(five)
-        let sum: Sum = (Sum)result
+        let sum: Sum = result as! Sum
         XCTAssertEqual(sum.augend, five)
         XCTAssertEqual(sum.addend, five)
     }
