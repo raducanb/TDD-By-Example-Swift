@@ -34,7 +34,7 @@ class Money: Equatable {
 
 extension Money: Expression {
     func reduce(withBank bank: Bank, to currency: String) -> Money {
-        var rate = bank.rate(from: self.currency, to: currency)
+        let rate = bank.rate(from: self.currency, to: currency)
         return Money(amount / rate, currency: currency)
     }
 }
@@ -54,20 +54,39 @@ func == <T: Money>(lhs: T, rhs: T) -> Bool {
         && lhs.currency == rhs.currency
 }
 
+func == <T: Bank.Pair>(lhs: T, rhs: T) -> Bool {
+    return lhs.from == rhs.from
+        && lhs.to == rhs.to
+}
+
 class Bank {
+    class Pair: Hashable, Equatable {
+        let from: String
+        let to: String
+
+        init(from: String, to: String) {
+            self.from = from
+            self.to = to
+        }
+
+        var hashValue: Int = 0
+    }
+    private var rates = [Pair: Int]()
+
     func reduce(_ expression: Expression, to currency: String) -> Money {
         return expression.reduce(withBank: self, to: currency)
     }
 
-    func addRate(from toCurrency: String, to fromCurrency: String, _ value: Int) {
-
+    func addRate(from fromCurrency: String, to toCurrency: String, _ value: Int) {
+        self.rates[Pair(from: fromCurrency, to: toCurrency)] = value
     }
 
     func rate(from: String, to: String) -> Int {
-        if from == "CHF" && to == "USD" {
-            return 2
+        if from == to {
+            return 1
         }
-        return 1
+        
+        return self.rates[Pair(from: from, to: to)]!
     }
 }
 
