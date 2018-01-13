@@ -52,7 +52,7 @@ class Bank {
     }
 }
 
-class Sum {
+class Sum: Expression {
     let augend: Money
     let addend: Money
 
