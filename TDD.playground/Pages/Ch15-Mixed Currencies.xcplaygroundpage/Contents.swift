@@ -1,10 +1,10 @@
 /*:
- * $5 + 10 CHF = $10 if rate is 2:1
- * $5 + $5 = $10
+ * **$5 + 10 CHF = $10 if rate is 2:1**
+ * OK - $5 + $5 = $10
  * Return Money from $5 + $5
  * OK - Bank.reduce(Money)
- * **Reduce Money with conversion**
- * Reduce(Bank, String)
+ * OK - Reduce Money with conversion**
+ * OK - Reduce(Bank, String)
  */
 
 import Foundation
@@ -166,15 +166,12 @@ class DollarTests: XCTestCase {
  * Return Money from $5 + $5
  * OK - Bank.reduce(Money)
  * OK - Reduce Money with conversion**
- * OK - Reduce(Bank, String)
+ * OK -Reduce(Bank, String)
  */
 
 /*:
  We've done the following:
- * Added a parameter, in seconds, that we expected we would need
- * Factored out the data duplication between code and tests
- * Introduced a private helper class without distinct tests of its own
- * Made a mistake in a refactoring and chose to forge ahead, writing another test to isolate the problem
+ * 
  */
 
 // Running the tests
