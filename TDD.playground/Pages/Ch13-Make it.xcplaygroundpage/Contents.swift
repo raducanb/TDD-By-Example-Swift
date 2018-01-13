@@ -123,6 +123,29 @@ class DollarTests: XCTestCase {
     }
 }
 
+/*:
+ * $5 + 10 CHF = $10 if rate is 2:1
+ * **$5 + $5 = $10**
+ * Return Money from $5 + $5
+ * OK - Bank.reduce(Money)
+ * Reduce Money with conversion
+ * Reduce(Bank, String)
+ * Money rounding?
+ * hashCode()
+ * Equal null
+ * Equal object
+ */
+
+/*:
+ We've done the following:
+ * Didn't mark a test as done because the duplication had not been eliminated
+ * Worked forward instead of backward to realize the implementation
+ * Wrote a test to force the creation of an object we expected to need later (Sum)
+ * Started implementing faster (the Sum constructor)
+ * Implemented code with casts in one place, then moved the code where it belonged once the tests were running
+ * Introduced polymorphism to eliminate explicit class checking
+ */
+
 // Running the tests
 class TestObserver: NSObject, XCTestObservation {
     func testCase(_ testCase: XCTestCase,
