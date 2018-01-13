@@ -11,9 +11,11 @@
 import Foundation
 import XCTest
 
-protocol Expression { }
+protocol Expression {
+    func reduce(to currency: String) -> Money
+}
 
-class Money: Equatable, Expression {
+class Money: Equatable {
     fileprivate var amount: Int
     public var currency: String
 
@@ -31,7 +33,7 @@ class Money: Equatable, Expression {
     }
 }
 
-extension Money {
+extension Money: Expression {
     func reduce(to currency: String) -> Money {
         return self
     }
@@ -54,12 +56,7 @@ func == <T: Money>(lhs: T, rhs: T) -> Bool {
 
 class Bank {
     func reduce(_ expression: Expression, to currency: String) -> Money {
-        if expression is Money {
-            let money = expression as! Money
-            return money.reduce(to: currency)
-        }
-        let sum = expression as! Sum
-        return sum.reduce(to: currency)
+        return expression.reduce(to: currency)
     }
 }
 
