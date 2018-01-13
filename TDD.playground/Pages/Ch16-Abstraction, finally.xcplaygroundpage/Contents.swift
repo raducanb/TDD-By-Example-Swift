@@ -15,6 +15,7 @@ import XCTest
 protocol Expression {
     func reduce(withBank bank: Bank, to currency: String) -> Money
     func plus(_ addend: Expression) -> Expression
+    func times(_ by: Int) -> Expression
 }
 
 class Money: Equatable {
@@ -24,10 +25,6 @@ class Money: Equatable {
     init(_ amount: Int, currency: String) {
         self.amount = amount
         self.currency = currency
-    }
-
-    func times(_ by: Int) -> Expression {
-        return Money(self.amount * by, currency: currency)
     }
 }
 
@@ -39,6 +36,10 @@ extension Money: Expression {
 
     func plus(_ addend: Expression) -> Expression {
         return Sum(self, addend)
+    }
+
+    func times(_ by: Int) -> Expression {
+        return Money(self.amount * by, currency: currency)
     }
 }
 
@@ -89,7 +90,12 @@ class Bank {
             return 1
         }
 
-        return self.rates[Pair(from: from, to: to)]!
+        if let rate = self.rates[Pair(from: from, to: to)] {
+            return rate
+        }
+
+        XCTFail("rate not found \(from) \(to)")
+        return 1
     }
 }
 
@@ -109,7 +115,11 @@ class Sum: Expression {
     }
 
     func plus(_ addend: Expression) -> Expression {
-        return Money(1, currency: "EXP")
+        return Sum(self, addend)
+    }
+
+    func times(_ by: Int) -> Expression {
+        return Sum(augend.times(by), addend.times(by))
     }
 }
 
@@ -176,24 +186,46 @@ class DollarTests: XCTestCase {
         let result = bank.reduce(fiveDollars.plus(tenFrancs), to: "USD")
         XCTAssertEqual(result, Money.dollar(10))
     }
+
+    func testSumPlusMoney() {
+        let fiveDollars: Expression = Money.dollar(5)
+        let tenFrancs: Expression = Money.franc(10)
+        let bank = Bank()
+        bank.addRate(from: "CHF", to: "USD", 2)
+        let sum = Sum(fiveDollars, tenFrancs).plus(fiveDollars)
+        let result = bank.reduce(sum, to: "USD")
+        XCTAssertEqual(result, Money.dollar(15))
+    }
+
+    func testSumTimes() {
+        let fiveDollars: Expression = Money.dollar(5)
+        let tenFrancs: Expression = Money.franc(10)
+        let bank = Bank()
+        bank.addRate(from: "CHF", to: "USD", 2)
+        let sum = Sum(fiveDollars, tenFrancs).times(2)
+        let result = bank.reduce(sum, to: "USD")
+        XCTAssertEqual(result, Money.dollar(20))
+
+    }
 }
 
 /*:
  * OK -$5 + 10 CHF = $10 if rate is 2:1
  * OK - $5 + $5 = $10
- * Return Money from $5 + $5
+ * OK - Return Money from $5 + $5
  * OK - Bank.reduce(Money)
  * OK - Reduce Money with conversion**
  * OK - Reduce(Bank, String)
- * Sum.plus
- * Expression.times
+ * OK - Sum.plus
+ * OK - Expression.times
  */
 
 /*:
  We've done the following:
- * Wrote the test we wanted, then backed off to make it achievable in one step
- * Generalized (used a more abstract declaration) from the leaves back to the root (the test case)
- * Followed the compiler when we made a change (Expression fiveBucks), which caused changes to ripple (added plus() to Expression, and so on)
+ * Wrote a test with future readers in mind
+ * Suggested an experiment comparing TDD with your current programming style
+ * Once again had changes of declarations ripple through the system, and once again followed the compiler's advice to fix them
+ * Tried a brief experiment, then discarded it when it didn't work out
  */
 
 // Running the tests
