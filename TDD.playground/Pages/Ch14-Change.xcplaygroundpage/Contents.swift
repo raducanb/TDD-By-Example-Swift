@@ -62,7 +62,9 @@ class Bank {
         return expression.reduce(to: currency)
     }
 
-    func addRate(to toCurrency: String, from fromCurrency: String, _ value: Int) {
+    func addRate(from toCurrency: String, to fromCurrency: String, _ value: Int) {
+
+    }
 
     }
 }
@@ -131,7 +133,7 @@ class DollarTests: XCTestCase {
 
     func testReduceMoneyWithDifferentCurrency() {
         let bank = Bank()
-        bank.addRate(to: "CHF", from: "USD", 2)
+        bank.addRate(from: "CHF", to: "USD", 2)
         let result = bank.reduce(Money.franc(2), to: "USD")
         XCTAssertEqual(Money.dollar(1), result)
     }
