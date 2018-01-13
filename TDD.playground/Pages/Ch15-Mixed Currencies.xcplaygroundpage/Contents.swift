@@ -85,7 +85,7 @@ class Bank {
         if from == to {
             return 1
         }
-        
+
         return self.rates[Pair(from: from, to: to)]!
     }
 }
@@ -100,7 +100,9 @@ class Sum: Expression {
     }
 
     func reduce(withBank bank: Bank, to currency: String) -> Money {
-        return Money(augend.amount + addend.amount, currency: currency)
+        let amount = augend.reduce(withBank: bank, to: currency).amount
+            + addend.reduce(withBank: bank, to: currency).amount
+        return Money(amount, currency: currency)
     }
 }
 
@@ -180,7 +182,7 @@ class DollarTests: XCTestCase {
 
 /*:
  We've done the following:
- * 
+ *
  */
 
 // Running the tests
