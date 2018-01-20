@@ -10,22 +10,28 @@ import XCTest
  * Report collected results
  */
 
-class WasRun: NSObject {
-    var wasRun: Bool
+class TestCase: NSObject {
     let testMethodSelector: Selector
 
     init(_ testMethodSelector: Selector) {
-        self.wasRun = false
         self.testMethodSelector = testMethodSelector
+    }
+
+    func run() {
+        self.perform(self.testMethodSelector)
+    }
+}
+
+class WasRun: TestCase {
+    var wasRun: Bool
+
+    override init(_ testMethodSelector: Selector) {
+        self.wasRun = false
+        super.init(testMethodSelector)
     }
 
     @objc func testMethod() {
         self.wasRun = true
-    }
-
-    func run() {
-        testMethod()
-//        self.perform(self.testMethodSelector)
     }
 }
 
