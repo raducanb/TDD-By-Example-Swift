@@ -17,17 +17,24 @@ class TestCase: NSObject {
         self.testMethodSelector = testMethodSelector
     }
 
+    func setup() { }
+
     func run() {
+        setup()
         self.perform(self.testMethodSelector)
     }
 }
 
 class WasRun: TestCase {
-    var wasRun: Bool
+    var wasRun = false
+    var wasSetup = false
 
     override init(_ testMethodSelector: Selector) {
-        self.wasRun = false
         super.init(testMethodSelector)
+    }
+
+    override func setup() {
+        self.wasSetup = true
     }
 
     @objc func testMethod() {
@@ -36,12 +43,38 @@ class WasRun: TestCase {
 }
 
 class TestCaseTest: TestCase {
+    var test: WasRun!
+
+    override func setup() {
+        self.test = WasRun(#selector(WasRun.testMethod))
+    }
+
     @objc func testCaseRunning() {
-        let test = WasRun(#selector(WasRun.testMethod))
-        XCTAssertFalse(test.wasRun)
-        test.run()
-        XCTAssertTrue(test.wasRun)
+        self.test.run()
+        XCTAssertTrue(self.test.wasRun)
+    }
+
+    @objc func testSetup() {
+        self.test.run()
+        XCTAssertTrue(self.test.wasSetup)
     }
 }
 
 TestCaseTest(#selector(TestCaseTest.testCaseRunning)).run()
+TestCaseTest(#selector(TestCaseTest.testSetup)).run()
+
+/* Backlog:
+ * OK - Invoke test method
+ * OK - Invoke setUp first
+ * Invoke tearDown afterward
+ * Invoke tearDown even if the test method fails
+ * Run multiple tests
+ * Report collected results
+ */
+
+/* Learnings:
+ * Decided that simplicity of test writing was more important than performance for the moment
+ * Tested and implemented setUp()
+ * Used setUp() to simplify the example test case
+ * Used setUp() to simplify the test cases checking the example test case (I told you this would become like self-brain-surgery.)
+ */
