@@ -44,7 +44,7 @@ class TestCaseTest: TestCase {
     }
 }
 
-TestCaseTest(#selector(TestCaseTest.testCaseRunnin)).run()
+TestCaseTest(#selector(TestCaseTest.testCaseRunning)).run()
 
 /* Backlog:
  * OK - Invoke test method
