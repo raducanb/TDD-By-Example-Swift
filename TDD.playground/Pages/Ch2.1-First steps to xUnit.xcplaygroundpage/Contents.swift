@@ -35,8 +35,14 @@ class WasRun: TestCase {
     }
 }
 
-let test = WasRun(#selector(WasRun.testMethod))
-XCTAssertFalse(test.wasRun)
-test.run()
-XCTAssertTrue(test.wasRun)
+class TestCaseTest: TestCase {
+    @objc func testCaseRunning() {
+        let test = WasRun(#selector(WasRun.testMethod))
+        XCTAssertFalse(test.wasRun)
+        test.run()
+        XCTAssertTrue(test.wasRun)
+    }
+}
+
+TestCaseTest(#selector(TestCaseTest.testCaseRunnin)).run()
 
