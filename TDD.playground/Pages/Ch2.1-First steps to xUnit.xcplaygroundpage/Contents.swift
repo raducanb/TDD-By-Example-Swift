@@ -8,7 +8,7 @@
  */
 
 class WasRun {
-    let wasRun: Bool
+    var wasRun: Bool
 
     init(_ testMethod: String) {
         self.wasRun = false
@@ -17,9 +17,13 @@ class WasRun {
     func testMethod() {
         self.wasRun = true
     }
+
+    func run() {
+        self.testMethod()
+    }
 }
 
 let test = WasRun("testMethod")
 print(test.wasRun)
-test.testMethod()
+test.run()
 print(test.wasRun)
