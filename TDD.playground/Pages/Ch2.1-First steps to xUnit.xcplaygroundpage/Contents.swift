@@ -7,6 +7,18 @@
  * Report collected results
  */
 
+class WasRun {
+    let wasRun: Bool
+
+    init(_ testMethod: String) {
+        self.wasRun = false
+    }
+
+    func testMethod() {
+        
+    }
+}
+
 let test = WasRun("testMethod")
 print(test.wasRun)
 test.testMethod()
