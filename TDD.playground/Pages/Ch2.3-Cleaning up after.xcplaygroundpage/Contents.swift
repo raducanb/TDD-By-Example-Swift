@@ -43,15 +43,10 @@ class WasRun: TestCase {
 }
 
 class TestCaseTest: TestCase {
-    var test: WasRun!
-
-    override func setup() {
-        self.test = WasRun(#selector(WasRun.testMethod))
-    }
-
     @objc func testTemplateMethod() {
-        self.test.run()
-        XCTAssertTrue(self.test.log == "setup testMethod")
+        let test = WasRun(#selector(WasRun.testMethod))
+        test.run()
+        XCTAssertTrue(test.log == "setup testMethod")
     }
 }
 
