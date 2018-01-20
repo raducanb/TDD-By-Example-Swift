@@ -2,7 +2,22 @@
 <playground version='6.0' target-platform='osx' display-mode='raw'>
     <pages>
         <page name='Table_of_Contents'/>
-        <page name='Combining_Operators'/>
-        <page name='Enable_RxSwift.resourceCount'/>
+        <page name='Ch1.1-Multi-Currency Money'/>
+        <page name='Ch1.2-Degenerate Objects'/>
+        <page name='Ch1.3-Equality for all'/>
+        <page name='Ch1.4-Privacy'/>
+        <page name='Ch1.5-Franc-ly Speaking'/>
+        <page name='Ch1.6-Equality for All, Redux'/>
+        <page name='Ch1.7-Apples and Oranges'/>
+        <page name='Ch1.8-Makin&apos; Objects'/>
+        <page name='Ch1.9-Times We&apos;re Livin&apos; In'/>
+        <page name='Ch1.10-Times We&apos;re Livin&apos; In copy'/>
+        <page name='Ch1.11-The Root of All Evil'/>
+        <page name='Ch1.12-Addition, Finally'/>
+        <page name='Ch1.13-Make it'/>
+        <page name='Ch1.14-Change'/>
+        <page name='Ch1.15-Mixed Currencies'/>
+        <page name='Ch1.16-Abstraction, finally'/>
+        <page name='Ch2.1-First steps to xUnit'/>
     </pages>
 </playground>
