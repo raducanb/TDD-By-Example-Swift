@@ -15,7 +15,7 @@ class WasRun {
     }
 
     func testMethod() {
-        
+        self.wasRun = true
     }
 }
 
