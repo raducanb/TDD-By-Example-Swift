@@ -1,3 +1,6 @@
+import Foundation
+import XCTest
+
 /* Backlog:
  * **Invoke test method**
  * Invoke setUp first
@@ -7,23 +10,27 @@
  * Report collected results
  */
 
-class WasRun {
+class WasRun: NSObject {
     var wasRun: Bool
+    let testMethodSelector: Selector
 
-    init(_ testMethod: String) {
+    init(_ testMethodSelector: Selector) {
         self.wasRun = false
+        self.testMethodSelector = testMethodSelector
     }
 
-    func testMethod() {
+    @objc func testMethod() {
         self.wasRun = true
     }
 
     func run() {
-        self.testMethod()
+        testMethod()
+//        self.perform(self.testMethodSelector)
     }
 }
 
-let test = WasRun("testMethod")
-print(test.wasRun)
+let test = WasRun(#selector(WasRun.testMethod))
+XCTAssertFalse(test.wasRun)
 test.run()
-print(test.wasRun)
+XCTAssertTrue(test.wasRun)
+
