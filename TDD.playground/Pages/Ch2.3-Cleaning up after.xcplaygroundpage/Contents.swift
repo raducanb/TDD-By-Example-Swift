@@ -4,7 +4,7 @@ import XCTest
 /* Backlog:
  * OK - Invoke test method
  * OK - Invoke setUp first
- * Invoke tearDown afterward
+ * **Invoke tearDown afterward**
  * Invoke tearDown even if the test method fails
  * Run multiple tests
  * Report collected results
