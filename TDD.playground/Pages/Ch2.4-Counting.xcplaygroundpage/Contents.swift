@@ -11,6 +11,14 @@ import XCTest
  * OK - Log string in WasRun
  */
 
+class TestResult {
+    let summary: String
+
+    init() {
+        self.summary = "1 run. 0 failed"
+    }
+}
+
 class TestCase: NSObject {
 //    let testMethodSelector: Selector
 
@@ -20,7 +28,7 @@ class TestCase: NSObject {
 
     func setup() { }
 
-    func run() { }
+    func run() -> TestResult { return TestResult() }
 
     func tearDown() { }
 }
@@ -32,10 +40,11 @@ class WasRun: TestCase {
         super.init(testMethodSelector)
     }
 
-    override func run() {
+    override func run() -> TestResult {
         self.setup()
         self.testMethod()
         self.tearDown()
+        return TestResult()
     }
 
     override func setup() {
@@ -52,9 +61,10 @@ class WasRun: TestCase {
 }
 
 class TestCaseTest: TestCase {
-    override func run() {
+    override func run() -> TestResult {
         self.setup()
         self.testTemplateMethod()
+        return TestResult()
     }
 
     func testTemplateMethod() {
@@ -66,7 +76,7 @@ class TestCaseTest: TestCase {
     func testSummary() {
         let test = WasRun(nil)
         let result = test.run()
-        XCTAssertTrue("1 success. 0 failed" == result.summary)
+        XCTAssertTrue("1 run. 0 failed" == result.summary)
     }
 }
 
