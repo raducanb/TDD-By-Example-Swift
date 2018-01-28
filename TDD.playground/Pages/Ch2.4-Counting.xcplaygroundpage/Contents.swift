@@ -91,3 +91,19 @@ class TestCaseTest: TestCase {
 
 let a = TestCaseTest(nil)
 a.run()
+
+/* Backlog:
+ * OK - Invoke test method
+ * OK - Invoke setUp first
+ * OK - Invoke tearDown afterward
+ * Invoke tearDown even if the test method fails
+ * Run multiple tests
+ * OK - Report collected results
+ * OK - Log string in WasRun
+ */
+
+/* Learnings:
+ * Wrote a fake implementation, and gradually began making it real by replacing constants with variables
+ * Wrote another test
+ * When that test failed, wrote yet another test, at a smaller scale, to support making the failing test work
+ */
