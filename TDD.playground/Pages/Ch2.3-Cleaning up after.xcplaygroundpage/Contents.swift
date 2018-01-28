@@ -58,7 +58,7 @@ class TestCaseTest: TestCase {
     override func testTemplateMethod() {
         let test = WasRun(nil)
         test.run()
-        XCTAssertTrue(test.log == "setup testMethod")
+        XCTAssertTrue(test.log == "setup testMethod tearDown")
     }
 }
 
