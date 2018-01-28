@@ -12,10 +12,17 @@ import XCTest
  */
 
 class TestResult {
-    let summary: String
+    var runCount: Int = 0
+    var failedCount: Int = 0
 
-    init() {
-        self.summary = "1 run. 0 failed"
+    init() {}
+
+    func testStarted() {
+        self.runCount += 1
+    }
+
+    func summary() -> String {
+        return "\(self.runCount) run. \(self.failedCount) failed"
     }
 }
 
@@ -41,10 +48,12 @@ class WasRun: TestCase {
     }
 
     override func run() -> TestResult {
+        let result = TestResult()
+        result.testStarted()
         self.setup()
         self.testMethod()
         self.tearDown()
-        return TestResult()
+        return result
     }
 
     override func setup() {
@@ -76,7 +85,7 @@ class TestCaseTest: TestCase {
     func testSummary() {
         let test = WasRun(nil)
         let result = test.run()
-        XCTAssertTrue("1 run. 0 failed" == result.summary)
+        XCTAssertTrue("1 run. 0 failed" == result.summary())
     }
 }
 
