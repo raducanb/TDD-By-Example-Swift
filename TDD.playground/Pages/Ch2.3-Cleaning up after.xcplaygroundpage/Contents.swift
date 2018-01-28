@@ -12,42 +12,56 @@ import XCTest
  */
 
 class TestCase: NSObject {
-    let testMethodSelector: Selector
+//    let testMethodSelector: Selector
 
-    init(_ testMethodSelector: Selector) {
-        self.testMethodSelector = testMethodSelector
+    init(_ testMethodSelector: Selector?) {
+//        self.testMethodSelector = testMethodSelector
     }
 
     func setup() { }
 
-    func run() {
-        setup()
-        self.perform(self.testMethodSelector)
-    }
+    func run() { }
+
+    func testMethod() {}
+    func testTemplateMethod() {}
 }
 
 class WasRun: TestCase {
     var log = String()
 
-    override init(_ testMethodSelector: Selector) {
+    override init(_ testMethodSelector: Selector?) {
         super.init(testMethodSelector)
     }
 
-    override func setup() {
-        log = "setup"
+    override func run() {
+        self.setup()
+        self.testMethod()
     }
 
-    @objc func testMethod() {
+    override func setup() {
+        self.log = "setup"
+    }
+
+    override func testMethod() {
         self.log += " testMethod"
     }
+
+    override func testTemplateMethod() {}
 }
 
 class TestCaseTest: TestCase {
-    @objc func testTemplateMethod() {
-        let test = WasRun(#selector(WasRun.testMethod))
+    override func run() {
+        self.setup()
+        self.testTemplateMethod()
+    }
+
+    override func testTemplateMethod() {
+        let test = WasRun(nil)
         test.run()
         XCTAssertTrue(test.log == "setup testMethod")
     }
 }
 
-TestCaseTest(#selector(TestCaseTest.testTemplateMethod)).run()
+let a = TestCaseTest(nil)
+a.run()
+
