@@ -23,9 +23,6 @@ class TestCase: NSObject {
     func run() { }
 
     func tearDown() { }
-
-    func testMethod() { }
-    func testTemplateMethod() { }
 }
 
 class WasRun: TestCase {
@@ -45,15 +42,13 @@ class WasRun: TestCase {
         self.log = "setup"
     }
 
-    override func testMethod() {
+    func testMethod() {
         self.log += " testMethod"
     }
 
     override func tearDown() {
         self.log += " tearDown"
     }
-
-    override func testTemplateMethod() { }
 }
 
 class TestCaseTest: TestCase {
@@ -62,7 +57,7 @@ class TestCaseTest: TestCase {
         self.testTemplateMethod()
     }
 
-    override func testTemplateMethod() {
+    func testTemplateMethod() {
         let test = WasRun(nil)
         test.run()
         XCTAssertTrue(test.log == "setup testMethod tearDown")
