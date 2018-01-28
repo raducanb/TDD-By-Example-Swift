@@ -62,6 +62,12 @@ class TestCaseTest: TestCase {
         test.run()
         XCTAssertTrue("setup testMethod tearDown" == test.log)
     }
+
+    func testSummary() {
+        let test = WasRun(nil)
+        let result = test.run()
+        XCTAssertTrue("1 success. 0 failed" == result.summary)
+    }
 }
 
 let a = TestCaseTest(nil)
