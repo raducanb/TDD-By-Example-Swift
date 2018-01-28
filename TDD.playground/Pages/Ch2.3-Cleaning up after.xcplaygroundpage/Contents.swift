@@ -22,8 +22,10 @@ class TestCase: NSObject {
 
     func run() { }
 
-    func testMethod() {}
-    func testTemplateMethod() {}
+    func tearDown() { }
+
+    func testMethod() { }
+    func testTemplateMethod() { }
 }
 
 class WasRun: TestCase {
@@ -36,6 +38,7 @@ class WasRun: TestCase {
     override func run() {
         self.setup()
         self.testMethod()
+        self.tearDown()
     }
 
     override func setup() {
@@ -46,7 +49,11 @@ class WasRun: TestCase {
         self.log += " testMethod"
     }
 
-    override func testTemplateMethod() {}
+    override func tearDown() {
+        self.log += " tearDown"
+    }
+
+    override func testTemplateMethod() { }
 }
 
 class TestCaseTest: TestCase {
