@@ -72,3 +72,17 @@ class TestCaseTest: TestCase {
 let a = TestCaseTest(nil)
 a.run()
 
+/* Backlog:
+ * OK - Invoke test method
+ * OK - Invoke setUp first
+ * OK - Invoke tearDown afterward
+ * Invoke tearDown even if the test method fails
+ * Run multiple tests
+ * Report collected results
+ * OK - Log string in WasRun
+ */
+
+/* Learnings:
+ * Restructured the testing strategy from flags to a log
+ * Tested and implemented tearDown() using the new log
+ */
