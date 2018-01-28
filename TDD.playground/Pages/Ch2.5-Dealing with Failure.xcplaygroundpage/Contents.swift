@@ -109,3 +109,21 @@ class TestCaseTest: TestCase {
 let a = TestCaseTest(nil)
 a.run()
 
+/* Backlog:
+ * OK - Invoke test method
+ * OK - Invoke setUp first
+ * OK - Invoke tearDown afterward
+ * Invoke tearDown even if the test method fails
+ * Run multiple tests
+ * OK - Report collected results
+ * OK - Log string in WasRun
+ * OK - Report failed tests
+ * Catch and report setUp errors
+ */
+
+ /* Learnings:
+ * Made our small-scale test work
+ * Reintroduced the larger scale test
+ * Made the larger test work quickly using the mechanism demonstrated by the smaller test
+ * Noticed a potential problem and noted it on the to-do list instead of addressing it immediately
+ */
