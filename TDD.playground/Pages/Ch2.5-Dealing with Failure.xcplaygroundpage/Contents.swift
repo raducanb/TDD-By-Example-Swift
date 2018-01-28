@@ -22,16 +22,20 @@ class TestResult {
         self.runCount += 1
     }
 
+    func testFailed() {
+        self.failedCount += 1
+    }
+
     func summary() -> String {
         return "\(self.runCount) run. \(self.failedCount) failed"
     }
 }
 
 class TestCase: NSObject {
-//    let testMethodSelector: Selector
+    //    let testMethodSelector: Selector
 
     init(_ testMethodSelector: Selector?) {
-//        self.testMethodSelector = testMethodSelector
+        //        self.testMethodSelector = testMethodSelector
     }
 
     func setup() { }
@@ -53,6 +57,13 @@ class WasRun: TestCase {
         result.testStarted()
         self.setup()
         self.testMethod()
+        do {
+            result.testStarted()
+            try self.testFailingMethod()
+        } catch {
+            result.testFailed()
+        }
+
         self.tearDown()
         return result
     }
@@ -68,12 +79,17 @@ class WasRun: TestCase {
     override func tearDown() {
         self.log += " tearDown"
     }
+
+    func testFailingMethod() throws {
+        throw NSError()
+    }
 }
 
 class TestCaseTest: TestCase {
     override func run() -> TestResult {
         self.setup()
         self.testTemplateMethod()
+        self.testSummary()
         return TestResult()
     }
 
@@ -86,9 +102,10 @@ class TestCaseTest: TestCase {
     func testSummary() {
         let test = WasRun(nil)
         let result = test.run()
-        XCTAssertTrue("1 run. 0 failed" == result.summary())
+        XCTAssertTrue("2 run. 1 failed" == result.summary())
     }
 }
 
 let a = TestCaseTest(nil)
 a.run()
+
